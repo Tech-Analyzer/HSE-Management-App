@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { MainNav } from "@/components/main-nav"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+<<<<<<< HEAD
 import type React from "react" // Added import for React
 
 async function getLastUsedPassportId(type: "individual" | "equipment"): Promise<string> {
@@ -40,6 +41,13 @@ async function getLastUsedPassportId(type: "individual" | "equipment"): Promise<
     console.error("Error getting last passport ID:", error)
     return type === "individual" ? "SLTPH2500001" : "SLTPHE2500001"
   }
+=======
+
+// Mock function to get the last used passport ID from the database
+const getLastUsedPassportId = async (type: "individual" | "equipment"): Promise<number> => {
+  // This would typically be an API call to your backend
+  return type === "individual" ? 0 : 0 // Starting from 0 for both types
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
 }
 
 export default function GeneratePassportPage() {
@@ -68,8 +76,14 @@ export default function GeneratePassportPage() {
 
   useEffect(() => {
     const generateNextPassportId = async () => {
+<<<<<<< HEAD
       const nextId = await getLastUsedPassportId(passportType)
       setNextPassportId(nextId)
+=======
+      const lastId = await getLastUsedPassportId(passportType)
+      const nextId = (lastId + 1).toString().padStart(4, "0")
+      setNextPassportId(passportType === "individual" ? `SLTPH25${nextId}` : `SLTPHE25${nextId}`)
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
     }
     generateNextPassportId()
   }, [passportType])
@@ -97,11 +111,16 @@ export default function GeneratePassportPage() {
     setIsLoading(true)
 
     try {
+<<<<<<< HEAD
+=======
+      // Generate QR code data
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
       const qrData = JSON.stringify({
         passportId: nextPassportId,
         name: formData.name || formData.equipmentType,
         company: formData.company || formData.manufacturer,
         position: formData.position || formData.modelNumber,
+<<<<<<< HEAD
         type: passportType,
       })
 
@@ -137,17 +156,26 @@ export default function GeneratePassportPage() {
       if (!response.ok) {
         throw new Error("Failed to save passport data")
       }
+=======
+      })
+
+      // In a real application, you would save this data to your backend here
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
 
       setGeneratedQR(qrData)
       toast({
         title: "Success",
         description: `HSE e-Passport QR generated successfully: ${nextPassportId}`,
       })
+<<<<<<< HEAD
 
       const nextId = await getLastUsedPassportId(passportType)
       setNextPassportId(nextId)
     } catch (error) {
       console.error("Error generating passport:", error)
+=======
+    } catch (error) {
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
       toast({
         title: "Error",
         description: "Failed to generate HSE e-Passport QR",
@@ -167,7 +195,10 @@ export default function GeneratePassportPage() {
       const canvas = document.createElement("canvas")
       const ctx = canvas.getContext("2d")
       const img = new Image()
+<<<<<<< HEAD
       img.crossOrigin = "anonymous"
+=======
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
       img.onload = () => {
         canvas.width = img.width
         canvas.height = img.height
@@ -190,6 +221,10 @@ export default function GeneratePassportPage() {
         <h1 className="text-3xl font-bold mb-8">Generate HSE e-Passport QR Code</h1>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+<<<<<<< HEAD
+=======
+          {/* Form */}
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
           <Card className="p-6 h-fit">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
@@ -212,7 +247,11 @@ export default function GeneratePassportPage() {
 
               <div className="space-y-2">
                 <Label>Passport ID to be generated</Label>
+<<<<<<< HEAD
                 <Input value={nextPassportId} disabled className="font-mono" />
+=======
+                <Input value={nextPassportId} disabled />
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
               </div>
 
               <div className="space-y-2">
@@ -385,6 +424,10 @@ export default function GeneratePassportPage() {
             </form>
           </Card>
 
+<<<<<<< HEAD
+=======
+          {/* QR Code Preview */}
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
           <motion.div
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -392,7 +435,11 @@ export default function GeneratePassportPage() {
           >
             {generatedQR ? (
               <div className="space-y-4">
+<<<<<<< HEAD
                 <div className="p-4 bg-white rounded-lg shadow-lg">
+=======
+                <div>
+>>>>>>> 10e52d1def588322ed1ea0aedd51e37cc4fa8adf
                   <QRCodeSVG id="qr-code" value={generatedQR} size={200} level="H" includeMargin />
                 </div>
                 <Button onClick={downloadQR} className="w-full">
